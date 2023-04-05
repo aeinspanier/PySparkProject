@@ -1,0 +1,13 @@
+version: '3'
+services:
+  spark-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spark-engine/latest
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
