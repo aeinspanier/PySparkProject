@@ -1,15 +1,14 @@
-FROM datamechanics/spark:3.1-latest
+FROM python:3.10.0-alpine
 
-ENV PYSPARK_MAJOR_PYTHON_VERSION=3
-WORKDIR /opt/application/
+# Create directory
+RUN mkdir /app
 
-# Gets the postgres driver
-RUN wget  https://jdbc.postgresql.org/download/postgresql-42.2.5.jar
-RUN mv postgresql-42.2.5.jar /opt/spark/jars
-
-COPY requirements.txt .
+#Copy stuff into /app
+COPY ./src /app
+COPY src/requirements.txt .
 RUN pip3 install -r requirements.txt
 
-COPY src/ src/
+# set workdir as "/app"
+WORKDIR /app 
 
-COPY main.py .
+ENTRYPOINT ["python","main.py", "hello wrld"]
